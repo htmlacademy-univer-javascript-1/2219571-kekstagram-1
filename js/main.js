@@ -1,3 +1,4 @@
+
 const COUNT_PHOTOS = 25;
 
 const COUNT_COMMENTS=10;
@@ -38,6 +39,7 @@ const getRandomNumber = (leftBorder, rightBorder) =>{
 
   return Math.floor(Math.random()*(rightBorder-leftBorder+1))+leftBorder;
 };
+
 
 const photos=[];
 
