@@ -18,7 +18,7 @@ const photos=[];
 
 const addPhoto = (id) => ({
   id,
-  url: `img/avatar-${id+1}.svg`,
+  url: `img/avatar-${getRandomNumber(1,6)}.svg`,
   description: DESCRIPTIONS[getRandomNumber(0,DESCRIPTIONS.length-1)],
   likes: getRandomNumber(15,200),
   comments: Array.from({length : getRandomNumber(1,COUNT_COMMENTS)}).map((_,index) => addComments(index+1))

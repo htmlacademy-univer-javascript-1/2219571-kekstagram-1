@@ -1,2 +1,1 @@
-import './rendered_images.js';
-
+import './rendered-images.js';
