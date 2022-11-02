@@ -1,5 +1,5 @@
-import { getRandomNumber } from './utils';
-import {addComments} from 'comments.js';
+import { getRandomNumber } from './utils.js';
+import {addComments} from './comments.js';
 
 
 const COUNT_PHOTOS = 25;
@@ -17,11 +17,11 @@ const DESCRIPTIONS = [
 const photos=[];
 
 const addPhoto = (id) => ({
-  id: id,
-  url: `img/avatar-${id+1}.svg`,
+  id,
+  url: `img/avatar-${getRandomNumber(1,6)}.svg`,
   description: DESCRIPTIONS[getRandomNumber(0,DESCRIPTIONS.length-1)],
   likes: getRandomNumber(15,200),
-  comments: Array.from({length : getRandomNumber(1,COUNT_COMMENTS)}).map((element,index) => addComments(index+1)),
+  comments: Array.from({length : getRandomNumber(1,COUNT_COMMENTS)}).map((_,index) => addComments(index+1))
 });
 
 const addPhotos = () => {
@@ -30,5 +30,7 @@ const addPhotos = () => {
   }
 };
 
-export {addPhotos};
+addPhotos();
+export{photos};
+
 

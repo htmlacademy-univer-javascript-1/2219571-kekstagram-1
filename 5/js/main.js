@@ -1,4 +1,1 @@
-import {addPhotos} from './photos.js';
-
-addPhotos();
-
+import './rendered-images.js';
