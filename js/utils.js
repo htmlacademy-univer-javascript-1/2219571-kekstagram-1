@@ -10,4 +10,6 @@ const getRandomNumber = (leftBorder, rightBorder) =>{
   return Math.floor(Math.random()*(rightBorder-leftBorder+1))+leftBorder;
 };
 
-export {getRandomNumber};
+const isEscape = (evt) => evt.key === 'Escape';
+
+export {getRandomNumber, isEscape};
