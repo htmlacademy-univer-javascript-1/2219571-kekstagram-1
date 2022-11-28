@@ -14,8 +14,7 @@ const closeClick = () => {
   document.body.classList.remove('modal-open');
 
 
-  document.querySelector('.text__hashtags').value='';
-  document.querySelector('.text__description').value='';
+  form.reset();
   imgUploadFileInput.value='';
 
   refreshPrinstine();
