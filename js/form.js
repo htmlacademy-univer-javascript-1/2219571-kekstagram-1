@@ -1,15 +1,17 @@
 import { isEscape } from './utils.js';
 import { onFormInput, refreshPrinstine } from './validation.js';
+import { setDefaultScale } from './scale.js';
+import { setDefaultEffects } from './effects.js';
 
 const imgUploadFileInput=document.querySelector('.img-upload__input');
 const form=document.querySelector('.img-upload__form');
 const overlay=document.querySelector('.img-upload__overlay');
 const closingButton = document.querySelector('#upload-cancel');
 
-const noFocus = (evt) => !evt.target.classList.contains('text__hashtags')
+const isNoFocus = (evt) => !evt.target.classList.contains('text__hashtags')
     && !evt.target.classList.contains('text__description') ;
 
-const closeClick = () => {
+const onCloseClick = () => {
   overlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
@@ -19,23 +21,27 @@ const closeClick = () => {
 
   refreshPrinstine();
   form.removeEventListener('submit', onFormInput);
-  closingButton.removeEventListener('click', closeClick);
+  closingButton.removeEventListener('click', onCloseClick);
 };
 
-const closeEscKey = (evt) => {
-  if (isEscape(evt) && noFocus(evt)){
-    closeClick();
-    document.removeEventListener('keydown', closeEscKey);
+const onEscKeyDown = (evt) => {
+  if (isEscape(evt) && isNoFocus(evt)){
+    onCloseClick();
+    document.removeEventListener('keydown', onEscKeyDown);
   }
 };
 
-const fileInput = () => {
+const onFileInput = () => {
   overlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-  closingButton.addEventListener('click', closeClick);
-  document.addEventListener('keydown', closeEscKey);
+  closingButton.addEventListener('click', onCloseClick);
+  document.addEventListener('keydown', onEscKeyDown);
   form.addEventListener('submit', onFormInput);
+
+  setDefaultScale();
+  setDefaultEffects();
 };
 
-imgUploadFileInput.addEventListener('input', fileInput);
+imgUploadFileInput.addEventListener('input', onFileInput);
+
