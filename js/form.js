@@ -11,7 +11,7 @@ const closingButton = document.querySelector('#upload-cancel');
 const isNoFocus = (evt) => !evt.target.classList.contains('text__hashtags')
     && !evt.target.classList.contains('text__description') ;
 
-const onCloseClick = () => {
+const closeForm = () => {
   overlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
@@ -21,12 +21,16 @@ const onCloseClick = () => {
 
   refreshPrinstine();
   form.removeEventListener('submit', onFormInput);
-  closingButton.removeEventListener('click', onCloseClick);
+  closingButton.removeEventListener('click', closeForm);
 };
-
+const onClosingButtonClick =() => {
+  closeForm();
+  closingButton.removeEventListener('click', closeForm);
+};
 const onEscKeyDown = (evt) => {
   if (isEscape(evt) && isNoFocus(evt)){
-    onCloseClick();
+    closeForm();
+    closingButton.removeEventListener('click', closeForm);
     document.removeEventListener('keydown', onEscKeyDown);
   }
 };
@@ -35,7 +39,7 @@ const onFileInput = () => {
   overlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-  closingButton.addEventListener('click', onCloseClick);
+  closingButton.addEventListener('click', onClosingButtonClick);
   document.addEventListener('keydown', onEscKeyDown);
   form.addEventListener('submit', onFormInput);
 
@@ -45,3 +49,4 @@ const onFileInput = () => {
 
 imgUploadFileInput.addEventListener('input', onFileInput);
 
+export{onEscKeyDown, closeForm};

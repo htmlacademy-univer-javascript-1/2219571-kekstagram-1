@@ -1,3 +1,5 @@
+import { sendData } from './sending.js';
+
 const MAX_COMMENT_SYMBOLS = 140;
 const MAX_HASHTAG_SYMBOLS = 20;
 const MAX_HASHTAGS = 5;
@@ -83,8 +85,9 @@ const commentsHandler = (comment) => comment.length <= MAX_COMMENT_SYMBOLS;
 pristine.addValidator(inputComment, commentsHandler,  `Длина комментария должна быть не более ${MAX_COMMENT_SYMBOLS } символов`);
 
 const onFormInput = (evt) => {
-  if (!pristine.validate()){
-    evt.preventDefault();
+  evt.preventDefault();
+  if (pristine.validate()){
+    sendData();
   }
 };
 
