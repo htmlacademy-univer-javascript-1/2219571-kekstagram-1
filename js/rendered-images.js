@@ -1,4 +1,3 @@
-import {photos} from './photos.js';
 import { addOnPhotoClick } from './big-photos.js';
 
 const pictures = document.querySelector('.pictures');
@@ -16,11 +15,11 @@ const renderPhoto = (photo) => {
   return element;
 };
 
-const renderPhotos = () => {
+const renderPhotos = (photos) => {
   photos.forEach((photo) => {
     fragment.appendChild(renderPhoto(photo));
   });
   pictures.appendChild(fragment);
 };
 
-renderPhotos();
+export {renderPhotos};
