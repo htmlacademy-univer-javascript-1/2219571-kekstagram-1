@@ -3,6 +3,7 @@ import {sendRequest} from './fetch.js';
 import './form.js';
 import './validation.js';
 import './effects.js';
+import './filters.js';
 import './scale.js';
 
 let photos = [];
@@ -10,6 +11,7 @@ let photos = [];
 const onSuccess = (data) => {
   photos=data.slice();
   renderPhotos(photos);
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
 const onFail = () => {
@@ -25,4 +27,7 @@ const onFail = () => {
   document.body.append(messageAlert);
 };
 
+
 sendRequest(onSuccess,onFail,'GET');
+
+export{photos};
