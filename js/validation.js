@@ -1,4 +1,4 @@
-import { sendData } from './sending.js';
+import { sendData } from './messages.js';
 
 const MAX_COMMENT_SYMBOLS = 140;
 const MAX_HASHTAG_SYMBOLS = 20;
@@ -21,7 +21,7 @@ let errorMessage = '';
 
 const error = () => errorMessage;
 
-const hashtagsHandler = (value) => {
+const hashtagsValidate = (value) => {
   errorMessage='';
   const inputText = value.toLowerCase().trim();
 
@@ -75,14 +75,10 @@ const hashtagsHandler = (value) => {
   });
 };
 
-pristine.addValidator(inputHashtag, hashtagsHandler, error);
+const commentsValidate = (comment) => comment.length <= MAX_COMMENT_SYMBOLS;
 
-inputHashtag.addEventListener('input', hashtagsHandler);
-
-
-const commentsHandler = (comment) => comment.length <= MAX_COMMENT_SYMBOLS;
-
-pristine.addValidator(inputComment, commentsHandler,  `Длина комментария должна быть не более ${MAX_COMMENT_SYMBOLS } символов`);
+pristine.addValidator(inputHashtag, hashtagsValidate, error);
+pristine.addValidator(inputComment, commentsValidate,  `Длина комментария должна быть не более ${MAX_COMMENT_SYMBOLS } символов`);
 
 const onFormInput = (evt) => {
   evt.preventDefault();
@@ -94,5 +90,7 @@ const onFormInput = (evt) => {
 const refreshPrinstine = () => {
   pristine.reset();
 };
+
+/*inputHashtag.addEventListener('input', hashtagsValidate);*/
 
 export {onFormInput, refreshPrinstine};

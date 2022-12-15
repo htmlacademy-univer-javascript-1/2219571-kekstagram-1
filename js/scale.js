@@ -2,6 +2,7 @@ const Scale = {
   STEP: 25,
   MIN_VALUE:25,
   MAX_VALUE:100,
+  RADIX:10
 };
 
 const overlay=document.querySelector('.img-upload__overlay');
@@ -11,7 +12,7 @@ const imagePreview=overlay.querySelector('.img-upload__preview').querySelector('
 
 const setDefaultScale = () => {
   scale.value=`${Scale.MAX_VALUE}%`;
-  imagePreview.style=`transform: scale(${1})`;
+  imagePreview.style.transform=`scale(${1})`;
 };
 
 const setCorrectScaleValue =(scaleValue) => {
@@ -34,10 +35,10 @@ const onScaleFieldClick = (evt) => {
     {
       scaleCoefficient = -1;
     }
-    value=parseInt(value,10)+Scale.STEP*scaleCoefficient;
+    value=parseInt(value,Scale.RADIX)+Scale.STEP*scaleCoefficient;
     value=setCorrectScaleValue(value);
 
-    imagePreview.style=`transform: scale(${value/100})`;
+    imagePreview.style.transform=`scale(${value/Scale.MAX_VALUE})`;
     scale.value=`${value}%`;
   }
 };

@@ -15,22 +15,20 @@ const closeForm = () => {
   overlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
-
   form.reset();
   imgUploadFileInput.value='';
 
   refreshPrinstine();
   form.removeEventListener('submit', onFormInput);
-  closingButton.removeEventListener('click', closeForm);
 };
 const onClosingButtonClick =() => {
   closeForm();
-  closingButton.removeEventListener('click', closeForm);
+  closingButton.removeEventListener('click', onClosingButtonClick);
 };
 const onEscKeyDown = (evt) => {
   if (isEscape(evt) && isNoFocus(evt)){
     closeForm();
-    closingButton.removeEventListener('click', closeForm);
+    closingButton.removeEventListener('click', onClosingButtonClick);
     document.removeEventListener('keydown', onEscKeyDown);
   }
 };

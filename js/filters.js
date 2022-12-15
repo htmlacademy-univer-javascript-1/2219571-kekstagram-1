@@ -1,14 +1,14 @@
 import {  debounce, getRandomElements } from './utils.js';
 import { renderPhotos, clearPhotos } from './rendered-images.js';
-import {photos} from './main.js';
+import {getPhotos} from './main.js';
 
 const RANDOM_PHOTOS_COUNT = 10;
 
 const filterForm = document.querySelector('.img-filters__form');
 const filters = {
-  'filter-default': () => photos.slice(),
-  'filter-random': () => getRandomElements(photos, RANDOM_PHOTOS_COUNT),
-  'filter-discussed': () => photos.slice().sort((photo1, photo2) => photo2.comments.length - photo1.comments.length),
+  'filter-default': () => getPhotos().slice(),
+  'filter-random': () => getRandomElements(getPhotos(), RANDOM_PHOTOS_COUNT),
+  'filter-discussed': () => getPhotos().slice().sort((photo1, photo2) => photo2.comments.length - photo1.comments.length),
 };
 
 const onFilterFormClick = debounce((evt) => {

@@ -13,9 +13,9 @@ const commentsLoader = document.querySelector('.comments-loader');
 
 const commentTemplate=bigPicture.querySelector('.social__comment');
 
+
 let visibleComments=[];
 let indexVisibleComments=COMMENTS_STEP;
-
 
 const createComment = (comment, template) => {
   const newComment = template.cloneNode(true);
@@ -30,6 +30,8 @@ const createComment = (comment, template) => {
 };
 
 const addComments = () =>{
+  const addedComments=visibleComments.slice(0, indexVisibleComments);
+
   comments.innerHTML='';
 
   if (indexVisibleComments>=visibleComments.length){
@@ -43,7 +45,7 @@ const addComments = () =>{
     commentsLoader.classList.remove('hidden');
   }
 
-  const addedComments=visibleComments.slice(0, indexVisibleComments);
+
   socialCommentsCount.textContent=`${indexVisibleComments} из ${visibleComments.length} комментариев`;
 
   addedComments.forEach((comment) => {
@@ -51,7 +53,7 @@ const addComments = () =>{
   });
 };
 
-const onLoarerClick = () => {
+const onCommentLoarerClick = () => {
   indexVisibleComments += COMMENTS_STEP;
   addComments();
 };
@@ -61,7 +63,7 @@ const closePhoto = () => {
   document.body.classList.remove('modal-open');
   visibleComments=[];
   indexVisibleComments=COMMENTS_STEP;
-  commentsLoader.removeEventListener('click', onLoarerClick);
+  commentsLoader.removeEventListener('click', onCommentLoarerClick);
 };
 
 const closingButton = bigPicture.querySelector('.big-picture__cancel');
@@ -79,7 +81,8 @@ const onEscKeyDown = (evt) => {
   }
 };
 
-const addOnPhotoClick = (image, photo) =>{
+
+const openBigPhoto = (image,photo) =>{
   image.addEventListener('click', () => {
     bigPicture.classList.remove('hidden');
     socialCommentsCount.classList.remove('hidden');
@@ -92,11 +95,11 @@ const addOnPhotoClick = (image, photo) =>{
     visibleComments=photo.comments;
     addComments();
 
-    commentsLoader.addEventListener('click', onLoarerClick);
+    commentsLoader.addEventListener('click', onCommentLoarerClick);
     document.addEventListener('keydown', onEscKeyDown);
     closingButton.addEventListener('click', onClosingButtonClick);
   });
 };
 
-export {addOnPhotoClick};
+export {openBigPhoto};
 
