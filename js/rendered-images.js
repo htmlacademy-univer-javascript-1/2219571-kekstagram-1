@@ -1,4 +1,4 @@
-import { addOnPhotoClick } from './big-photos.js';
+import { openBigPhoto } from './big-photos.js';
 
 const pictures = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -11,7 +11,7 @@ const renderPhoto = (photo) => {
   element.querySelector('.picture__likes').textContent=photo.likes;
   element.querySelector('.picture__comments').textContent=photo.comments.length;
 
-  addOnPhotoClick(element,photo);
+  openBigPhoto(element,photo);
   return element;
 };
 

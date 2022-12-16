@@ -1,12 +1,15 @@
 import {renderPhotos} from './rendered-images.js';
 import {sendRequest} from './fetch.js';
 import './form.js';
+import './image-upload.js';
 import './validation.js';
 import './effects.js';
 import './filters.js';
 import './scale.js';
 
 let photos = [];
+
+const getPhotos = () => photos;
 
 const onSuccess = (data) => {
   photos=data.slice();
@@ -30,4 +33,4 @@ const onFail = () => {
 
 sendRequest(onSuccess,onFail,'GET');
 
-export{photos};
+export{getPhotos};

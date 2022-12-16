@@ -1,13 +1,4 @@
-const form=document.querySelector('.img-upload__form');
-const overlay=document.querySelector('.img-upload__overlay');
-const imagePreview=overlay.querySelector('.img-upload__preview');
-const slider=form.querySelector('.effect-level__slider');
-const effectsList=form.querySelector('.effects__list');
-const image=imagePreview.querySelector('img');
-const effectLevelField=form.querySelector('.img-upload__effect-level');
-const defaultImageClass = image.classList[0];
-
-const EFFECT ={
+const Effect ={
   MAX_CHROME_VALUE:1,
   MAX_SEPIA_VALUE:1,
   MAX_INVERT_VALUE:100,
@@ -19,11 +10,21 @@ const EFFECT ={
   INVERT_STEP:1
 };
 
-const SLIDER = {
+const Slider = {
   MIN:0,
   MAX:100,
   STEP:1
 };
+
+const form=document.querySelector('.img-upload__form');
+const overlay=document.querySelector('.img-upload__overlay');
+const imagePreview=overlay.querySelector('.img-upload__preview');
+const slider=form.querySelector('.effect-level__slider');
+const effectsList=form.querySelector('.effects__list');
+const image=imagePreview.querySelector('img');
+const effectLevelField=form.querySelector('.img-upload__effect-level');
+const defaultImageClass = image.classList[0];
+
 
 let effectLevelValue=form.querySelector('.effect-level__value').value;
 let currentEffect = '';
@@ -31,11 +32,11 @@ let currentEffect = '';
 
 noUiSlider.create(slider, {
   range: {
-    min: SLIDER.MIN,
-    max: SLIDER.MAX,
+    min: Slider.MIN,
+    max: Slider.MAX,
   },
-  start: SLIDER.MAX,
-  step: SLIDER.STEP,
+  start: Slider.MAX,
+  step: Slider.STEP,
   connect: 'lower',
 });
 
@@ -47,24 +48,24 @@ const effects = {
   },
   chrome: () => {
     effectLevelField.classList.remove('visually-hidden');
-    return `grayscale(${parseInt(effectLevelValue,EFFECT.RADIX)*EFFECT.STEP})`;
+    return `grayscale(${parseInt(effectLevelValue,Effect.RADIX)*Effect.STEP})`;
   },
   sepia: () => {
     effectLevelField.classList.remove('visually-hidden');
-    return `sepia(${parseInt(effectLevelValue,EFFECT.RADIX)*EFFECT.STEP})`;
+    return `sepia(${parseInt(effectLevelValue,Effect.RADIX)*Effect.STEP})`;
   },
   marvin: () => {
     effectLevelField.classList.remove('visually-hidden');
-    return `invert(${parseInt(effectLevelValue,EFFECT.RADIX)*EFFECT.INVERT_STEP}%)`;
+    return `invert(${parseInt(effectLevelValue,Effect.RADIX)*Effect.INVERT_STEP}%)`;
   },
   phobos: () => {
     effectLevelField.classList.remove('visually-hidden');
-    return `blur(${parseInt(effectLevelValue,EFFECT.RADIX)*EFFECT.STEP*EFFECT.MAX_BLUR_VALUE}px)`;
+    return `blur(${parseInt(effectLevelValue,Effect.RADIX)*Effect.STEP*Effect.MAX_BLUR_VALUE}px)`;
   },
   heat: () => {
     effectLevelField.classList.remove('visually-hidden');
-    const effectMin = SLIDER.MAX / (EFFECT.MAX_BRIGHTNESS_VALUE - 1);
-    return `brightness(${(effectMin + parseInt(effectLevelValue, EFFECT.RADIX))*EFFECT.STEP*(EFFECT.MAX_BRIGHTNESS_VALUE-1)})`;
+    const effectMin = Slider.MAX / (Effect.MAX_BRIGHTNESS_VALUE - 1);
+    return `brightness(${(effectMin + parseInt(effectLevelValue, Effect.RADIX))*Effect.STEP*(Effect.MAX_BRIGHTNESS_VALUE-1)})`;
   }
 };
 
@@ -75,8 +76,7 @@ const setDefaultEffects = () => {
 };
 
 const setEffect = (effect) => {
-  const effectName=effect.replace('effects__preview--','');
-  image.style.filter=effects[effectName]();
+  image.style.filter=effects[effect.replace('effects__preview--','')]();
 };
 
 const onEffectsClick = (evt) => {
@@ -88,8 +88,8 @@ const onEffectsClick = (evt) => {
     if(currentEffect !== ''){
       image.classList.remove(currentEffect);
     }
-    slider.noUiSlider.set(SLIDER.MAX);
-    effectLevelValue = SLIDER.MAX;
+    slider.noUiSlider.set(Slider.MAX);
+    effectLevelValue = Slider.MAX;
     currentEffect = target.classList[1];
     image.classList.add(currentEffect);
     setEffect(currentEffect);
