@@ -15,10 +15,10 @@ const closeForm = () => {
   overlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
-  form.reset();
   imgUploadFileInput.value='';
 
   refreshPrinstine();
+  form.reset();
   form.removeEventListener('submit', onFormInput);
 };
 const onClosingButtonClick =() => {
@@ -34,15 +34,15 @@ const onEscKeyDown = (evt) => {
 };
 
 const onFileInput = () => {
+  setDefaultScale();
+  setDefaultEffects();
+
   overlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
   closingButton.addEventListener('click', onClosingButtonClick);
   document.addEventListener('keydown', onEscKeyDown);
   form.addEventListener('submit', onFormInput);
-
-  setDefaultScale();
-  setDefaultEffects();
 };
 
 imgUploadFileInput.addEventListener('input', onFileInput);
